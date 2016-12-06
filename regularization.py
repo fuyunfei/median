@@ -51,8 +51,8 @@ l2 = Layer(l1.outputs, 50, 1, None)
 
 # the way to compute cost
 #cost = T.mean(T.square(l2.outputs - y))      # without regularization
-cost = T.mean(T.square(l2.outputs - y)) + 0.01 * ((l1.W ** 2).sum() + (l2.W ** 2).sum())  # with l2 regularization
-# cost = T.mean(T.square(l2.outputs - y)) + 0.1 * (abs(l1.W).sum() + abs(l2.W).sum())  # with l1 regularization
+cost = T.mean(T.square(l2.outputs - y)) + 0.1 * ((l1.W ** 2).sum() + (l2.W ** 2).sum())  # with l2 regularization
+#cost = T.mean(T.square(l2.outputs - y)) + 0.1 * (abs(l1.W).sum() + abs(l2.W).sum())  # with l1 regularization
 gW1, gb1, gW2, gb2 = T.grad(cost, [l1.W, l1.b, l2.W, l2.b])
 
 learning_rate = 0.01
@@ -73,8 +73,8 @@ for i in range(1000):
     train(x_train, y_train)
     if i % 10 == 0:
         # record cost
-        train_err_list.append(compute_cost(x_train, y_train))
-        test_err_list.append(compute_cost(x_test, y_test))
+        train_err_list.append(compute_cost(x_train, y_train)/1.5)
+        test_err_list.append(compute_cost(x_test, y_test)/1.5)
         learning_time.append(i)
 
 # plot cost history
